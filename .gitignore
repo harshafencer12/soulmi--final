@@ -1,0 +1,13 @@
+.env
+node_modules/
+.tmp/
+config.js
+
+# Backend
+backend/venv/
+backend/__pycache__/
+**/__pycache__/
+*.pyc
+
+# Dataset (FER2013) — large, not source code, re-downloadable from Kaggle
+backend/data/

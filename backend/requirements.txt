@@ -1,0 +1,10 @@
+flask
+flasgger
+flask-cors
+mysql-connector-python
+python-dotenv
+werkzeug
+requests
+numpy
+opencv-python-headless<5
+tensorflow

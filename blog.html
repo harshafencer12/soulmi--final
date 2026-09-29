@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Blog & Insights | SoulMi</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Nunito+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Blog Page Specific Layout & Animations */
+        .blog-hero {
+            padding: 160px 0 60px;
+            text-align: center;
+        }
+        .blog-hero h1 {
+            margin-bottom: 12px;
+        }
+        .blog-hero p {
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        /* Magazine Grid */
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+            margin-top: 40px;
+        }
+        
+        .post-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            cursor: pointer;
+        }
+        
+        .post-card:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .post-card.featured {
+            grid-column: 1 / -1;
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            min-height: 420px;
+        }
+        
+        .post-thumb-wrap {
+            position: relative;
+            background: linear-gradient(135deg, var(--lavender-light) 0%, var(--terracotta-light) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4.5rem;
+            overflow: hidden;
+            min-height: 240px;
+            height: 100%;
+        }
+        
+        .post-card.featured .post-thumb-wrap {
+            font-size: 7rem;
+            min-height: 100%;
+        }
+        
+        .post-body {
+            padding: 32px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            flex-grow: 1;
+        }
+        
+        .post-body .tag {
+            align-self: flex-start;
+            margin-bottom: 16px;
+        }
+        
+        .post-body h2, .post-body h3 {
+            font-family: var(--font-head);
+            color: var(--charcoal);
+            margin-bottom: 16px;
+            line-height: 1.3;
+        }
+        
+        .post-body h2 {
+            font-size: 2rem;
+        }
+        
+        .post-body h3 {
+            font-size: 1.35rem;
+        }
+        
+        .post-body p {
+            color: var(--text-secondary);
+            margin-bottom: 24px;
+            font-size: 0.98rem;
+            line-height: 1.7;
+        }
+        
+        .post-meta {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-family: var(--font-head);
+            font-weight: 600;
+            margin-top: auto;
+        }
+        
+        .post-meta .author-avatar {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: var(--cream-dark);
+            color: var(--charcoal);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+        }
+        
+        /* Reading Mode Overlay */
+        .reader-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(74, 67, 88, 0.45);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            z-index: 2000;
+            display: none;
+            overflow-y: auto;
+            opacity: 0;
+            transition: opacity 0.4s var(--ease);
+            padding: 40px 20px;
+        }
+        
+        .reader-overlay.active {
+            display: block;
+            opacity: 1;
+        }
+        
+        .reader-container {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            max-width: 800px;
+            margin: 0 auto;
+            box-shadow: var(--shadow-lg);
+            overflow: hidden;
+            position: relative;
+            transform: translateY(40px);
+            transition: transform 0.4s var(--ease);
+        }
+        
+        .reader-overlay.active .reader-container {
+            transform: translateY(0);
+        }
+        
+        .reader-header-visual {
+            height: 280px;
+            background: linear-gradient(135deg, var(--lavender-light) 0%, var(--terracotta-light) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 8rem;
+            position: relative;
+        }
+        
+        .reader-close {
+            position: absolute;
+            top: 24px;
+            right: 24px;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.85);
+            border: none;
+            color: var(--charcoal);
+            font-size: 1.8rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+            z-index: 10;
+        }
+        
+        .reader-close:hover {
+            background: white;
+            transform: scale(1.05);
+        }
+        
+        .reader-content {
+            padding: 48px 60px;
+            max-width: 720px;
+            margin: 0 auto;
+        }
+        
+        @media (max-width: 768px) {
+            .reader-content {
+                padding: 32px 24px;
+            }
+            .blog-grid {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+            .post-card.featured {
+                grid-template-columns: 1fr;
+                min-height: auto;
+            }
+            .post-card.featured .post-body {
+                padding: 24px;
+            }
+            .post-body {
+                padding: 24px;
+            }
+        }
+        
+        .reader-content h1 {
+            font-size: clamp(1.8rem, 4vw, 2.6rem);
+            margin-bottom: 20px;
+            line-height: 1.3;
+        }
+        
+        .reader-meta-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 20px;
+            margin-bottom: 32px;
+        }
+        
+        .reader-article-body {
+            font-size: 1.12rem;
+            line-height: 1.8;
+            color: var(--text-primary);
+        }
+        
+        .reader-article-body p {
+            margin-bottom: 24px;
+            color: var(--charcoal);
+        }
+        
+        .reader-article-body blockquote {
+            border-left: 4px solid var(--sage);
+            padding: 16px 24px;
+            margin: 32px 0;
+            font-family: var(--font-head);
+            font-size: 1.3rem;
+            font-style: italic;
+            color: var(--sage-dark);
+            background: rgba(111, 148, 148, 0.05);
+            border-radius: 0 var(--radius-md) var(--radius-md) 0;
+        }
+        
+        .reader-footer {
+            border-top: 1px solid var(--border);
+            padding-top: 32px;
+            margin-top: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .share-actions {
+            display: flex;
+            gap: 12px;
+        }
+        
+        .btn-circle {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: var(--cream);
+            border: 1px solid var(--border);
+            color: var(--charcoal);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+        
+        .btn-circle:hover {
+            background: var(--cream-dark);
+            color: var(--lavender-dark);
+            transform: scale(1.05);
+        }
+        
+        .bookmark-btn.active svg {
+            fill: var(--terracotta);
+            stroke: var(--terracotta);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ======= NAVBAR ======= -->
+    <header id="navbar">
+        <div class="container">
+            <div class="nav-inner">
+                <a href="index.html" class="nav-logo">
+                    <img src="images/soulmi-logo.jpeg" alt="SoulMi Logo" class="nav-logo-icon">
+                    <span class="nav-logo-text">SoulMi</span>
+                </a>
+                <nav class="nav-links">
+                    <a href="index.html">Home</a>
+                    <a href="about.html">About</a>
+                    <a href="therapists.html">Therapists</a>
+                    <a href="resources.html">Resources</a>
+                    <a href="community.html">Community</a>
+                </nav>
+                <div class="nav-actions">
+                    <a href="tel:9152987821" class="crisis-link">Crisis Help</a>
+                    <div class="theme-toggle" id="theme-toggle" title="Toggle Zen Mode">
+                        <svg class="moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+                        <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+                    </div>
+                    <a href="register.html" class="btn btn-primary btn-sm">Get Started</a>
+                </div>
+                <button class="nav-hamburger" id="nav-hamburger" aria-label="Open menu">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <div class="nav-mobile-menu" id="nav-mobile-menu">
+        <button class="nav-mobile-close" id="nav-mobile-close" aria-label="Close menu">×</button>
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="therapists.html">Therapists</a>
+        <a href="resources.html">Resources</a>
+        <a href="community.html">Community</a>
+        <a href="register.html" class="btn btn-primary" style="margin-top: 12px;">Get Started</a>
+    </div>
+
+    <!-- ======= PAGE HERO ======= -->
+    <div class="blog-hero">
+        <div class="container">
+            <div class="chip chip-lavender">Insights</div>
+            <h1>SoulMi Blog</h1>
+            <p>Thoughtful articles, personal stories, and professional advice on emotional well-being, mindfulness, and relationships.</p>
+        </div>
+    </div>
+
+    <!-- ======= SEARCH & FILTER ======= -->
+    <section class="section" style="padding-top: 0; padding-bottom: 0;">
+        <div class="container">
+            <div class="filter-chips" style="justify-content: center;">
+                <button class="filter-chip active" data-filter="all">All Articles</button>
+                <button class="filter-chip" data-filter="Anxiety">Anxiety</button>
+                <button class="filter-chip" data-filter="Mindfulness">Mindfulness</button>
+                <button class="filter-chip" data-filter="Sleep">Sleep</button>
+                <button class="filter-chip" data-filter="Relationships">Relationships</button>
+                <button class="filter-chip" data-filter="Self-Esteem">Self-Esteem</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- ======= BLOG GRID ======= -->
+    <section class="section" style="padding-top: 40px;">
+        <div class="container">
+            <div class="blog-grid" id="blog-posts-container">
+                <!-- Posts will be generated here by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- ======= READER OVERLAY ======= -->
+    <div class="reader-overlay" id="reader-overlay" role="dialog" aria-modal="true">
+        <div class="reader-container" id="reader-container">
+            <button class="reader-close" id="reader-close" aria-label="Close article">×</button>
+            <div class="reader-header-visual" id="reader-visual">🌬️</div>
+            <div class="reader-content">
+                <span class="tag tag-anxiety" id="reader-tag">Anxiety</span>
+                <h1 id="reader-title">5 Grounding Techniques That Actually Work During Panic</h1>
+                <div class="reader-meta-bar">
+                    <div class="post-meta" style="margin-top: 0;">
+                        <div class="author-avatar" id="reader-avatar">M</div>
+                        <div>
+                            <strong id="reader-author" style="color: var(--charcoal); display: block;">Dr. S. Mehra</strong>
+                            <span id="reader-date" style="font-size:0.75rem; color:var(--text-muted);">Published 2 days ago</span>
+                        </div>
+                    </div>
+                    <span id="reader-readtime" style="font-family:var(--font-head); font-size:0.85rem; font-weight:600; color:var(--text-muted);">5 min read</span>
+                </div>
+                <div class="reader-article-body" id="reader-article-body">
+                    <!-- Article body injected here -->
+                </div>
+                <div class="reader-footer">
+                    <div class="post-meta" style="margin-top: 0;">
+                        <button class="btn btn-secondary btn-sm bookmark-btn" id="reader-bookmark-btn" aria-label="Save this article">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+                            <span>Save Article</span>
+                        </button>
+                    </div>
+                    <div class="share-actions">
+                        <button class="btn-circle" title="Share on Twitter" aria-label="Share on Twitter"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/></svg></button>
+                        <button class="btn-circle" title="Copy Link" aria-label="Copy Link" id="reader-copy-link-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ======= FOOTER ======= -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <span class="nav-logo-text">SoulMi</span>
+                    <p>Where every soul finds its home. A warm, safe sanctuary for your mind — anytime, anywhere.</p>
+                    <div class="footer-social">
+                        <a href="#" class="social-btn" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor"/></svg></a>
+                        <a href="#" class="social-btn" aria-label="Twitter"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/></svg></a>
+                        <a href="#" class="social-btn" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
+                    </div>
+                    <div class="footer-crisis">
+                        <strong>Crisis Support:</strong> iCall India — <a href="tel:9152987821">9152987821</a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h5>Platform</h5>
+                    <ul>
+                        <li><a href="#">SoulMi AI</a></li>
+                        <li><a href="#">Mood Tracker</a></li>
+                        <li><a href="resources.html">Resources</a></li>
+                        <li><a href="community.html">Community</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h5>Company</h5>
+                    <ul>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="therapists.html">Therapists</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="#">Careers</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h5>Contact</h5>
+                    <ul>
+                        <li><a href="mailto:soulmi.2040@gmail.com">soulmi.2040@gmail.com</a></li>
+                        <li><a href="tel:+919100907664">+91 91009 07664</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Use</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2026 SoulMi Sanctuary. All rights reserved.</p>
+                <p>Made with care for every mind that needs a home.</p>
+            </div>
+        </div>
+    </footer>
+
+    <nav class="bottom-nav" aria-label="Mobile navigation">
+        <div class="bottom-nav-inner">
+            <a href="index.html" class="bottom-nav-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                <span>Home</span>
+            </a>
+            <a href="community.html" class="bottom-nav-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                <span>Community</span>
+            </a>
+            <a href="resources.html" class="bottom-nav-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+                <span>Resources</span>
+            </a>
+            <a href="therapists.html" class="bottom-nav-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="7" r="4"/><path d="M3 21v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/><path d="M21 21v-2a4 4 0 0 0-3-3.87"/></svg>
+                <span>Therapists</span>
+            </a>
+        </div>
+    </nav>
+
+    <!-- ======= AI CHAT WIDGET ======= -->
+    <div class="chat-widget">
+        <div class="chat-tooltip">Talk to SoulMi AI 🌿</div>
+        <button id="chat-toggle" class="chat-btn" aria-label="Open SoulMi AI chat">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        </button>
+        <div class="chat-window" id="chat-window" role="dialog" aria-label="SoulMi AI Chat">
+            <div class="chat-header">
+                <div class="chat-title">
+                    <div class="online-dot"></div> SoulMi AI
+                </div>
+                <button id="close-chat" aria-label="Close chat">×</button>
+            </div>
+            <div class="chat-body" id="chat-body">
+                <div class="message ai-msg">Hi there. I'm SoulMi. This is a safe space — no judgment, just care. How are you feeling right now?</div>
+            </div>
+            <div class="chat-input">
+                <input type="text" id="chat-input-field" placeholder="Type a message..." aria-label="Chat message">
+                <button id="send-btn">Send</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="config.js"></script>
+    <script src="script.js"></script>
+    <script>
+        // Article Database
+        const blogPosts = [
+            {
+                id: 1,
+                title: "5 Grounding Techniques That Actually Work During Panic",
+                summary: "Evidence-based methods to bring yourself back to the present moment when anxiety spikes. Learn the 5-4-3-2-1 technique, temperature shifts, and more.",
+                content: `
+                    <p>Panic attacks can feel like a sudden, overwhelming wave of fear that makes it hard to breathe or think straight. When your body enters this high-stress fight-or-flight mode, cognitive reasoning shuts down. You cannot "think" your way out of panic. Instead, you must communicate safety to your nervous system through your physical body.</p>
+                    <p>Grounding techniques are somatic practices designed to anchor your mind back to the present moment, calming physical symptoms of panic. Here are 5 evidence-based grounding techniques that actually work:</p>
+                    
+                    <h3>1. The 5-4-3-2-1 Sensory Method</h3>
+                    <p>This is the gold standard of grounding. It works by forcing your brain to shift focus from internal anxiety loops to external sensory inputs. Look around your room and identify:</p>
+                    <ul>
+                        <li><strong>5 things you can see:</strong> A coffee cup, a plant, a picture frame, a spot on the carpet, a door handle.</li>
+                        <li><strong>4 things you can physically feel:</strong> The weight of your feet on the floor, the texture of your shirt, the cool surface of your desk, the back of your chair.</li>
+                        <li><strong>3 things you can hear:</strong> Traffic outside, a clock ticking, a humming refrigerator.</li>
+                        <li><strong>2 things you can smell:</strong> The scent of soap, rain outside, coffee.</li>
+                        <li><strong>1 thing you can taste:</strong> The lingering mint in your mouth or a sip of cold water.</li>
+                    </ul>
+
+                    <blockquote>"By directing our awareness outward through our physical senses, we interrupt the threat loop running in our amygdala."</blockquote>
+
+                    <h3>2. Temperature Shock (TIPP Protocol)</h3>
+                    <p>If your panic is acute, your heart rate is racing, and you feel completely detached, a rapid change in temperature can trigger the mammalian dive reflex, instantly lowering your heart rate. Splash ice-cold water onto your face, hold an ice cube in the palm of your hand, or run cold water over your wrists for 30 seconds.</p>
+
+                    <h3>3. The 3-3-3 Rule</h3>
+                    <p>A quicker variation of the sensory method. Look around and name three things you see. Name three sounds you hear. Finally, move three parts of your body (e.g., wiggle your toes, roll your shoulders, rotate your wrists).</p>
+
+                    <h3>4. Elongating Your Out-Breath</h3>
+                    <p>When panic strikes, we tend to hyperventilate, taking shallow breaths in. This increases carbon dioxide levels in the blood, worsening the panic feeling. To reverse this, ensure your exhalation is twice as long as your inhalation. Inhale for 4 seconds, hold for 2, and blow out gently for 8 seconds. Think of blowing out a candle slowly.</p>
+
+                    <h3>5. Mindful Weight Distribution</h3>
+                    <p>Stand up if you are sitting, or sit up straight. Press your heels firmly into the ground. Notice how the floor is supporting your entire weight. If sitting, feel the heavy points of contact between your thighs and the chair. Say to yourself silently, "I am physically supported. I am safe in this room."</p>
+                `,
+                category: "Anxiety",
+                author: "Dr. S. Mehra",
+                avatar: "SM",
+                date: "2 days ago",
+                readTime: "5 min read",
+                thumb: "🌬️",
+                featured: true
+            },
+            {
+                id: 2,
+                title: "The Science Behind Mindful Breathing & Your Nervous System",
+                summary: "How controlled breathwork directly signals your body to shift out of fight-or-flight mode and activate your vagus nerve.",
+                content: `
+                    <p>We hear the advice "just breathe" all the time. But why does breathing actually work? Behind this ancient practice lies a beautiful, elegant neurological mechanism. Understanding the science of breathwork empowers us to use it as a real-time remote control for our brains.</p>
+                    <p>Our autonomic nervous system is divided into two branches: the sympathetic nervous system (fight-or-flight) and the parasympathetic nervous system (rest-and-digest). When stress hits, the sympathetic system takes over. Your breathing becomes shallow, heart rate goes up, and blood flows away from digestion to your limbs.</p>
+                    
+                    <h3>The Vagus Nerve: The Relaxation Highway</h3>
+                    <p>The vagus nerve is the longest nerve of the autonomic nervous system, running from the brainstem all the way to the abdomen. It acts as the primary pathway for the parasympathetic system. When stimulated, the vagus nerve releases acetylcholine, a neurotransmitter that tells your heart to slow down, lowers blood pressure, and calms muscles.</p>
+                    <p>How do we stimulate the vagus nerve? Through our breath. Specifically, diaphragmatic breathing (deep belly breaths) and prolonged exhalations.</p>
+
+                    <blockquote>"The breath is the only autonomic function we have conscious, voluntary control over. It is our direct interface with the nervous system."</blockquote>
+
+                    <h3>What Happens When You Inhale vs. Exhale</h3>
+                    <p>When you inhale, your diaphragm contracts and moves downward. This leaves more space in your chest cavity, causing the heart to expand slightly and blood flow to slow. The brain senses this slowdown and speeds up the heart rate to compensate. Inhaling is sympathetic.</p>
+                    <p>When you exhale, your diaphragm relaxes and moves upward. The space in your chest cavity shrinks, compressing the heart. Blood flows faster, and the brain signals the heart rate to slow down. Exhaling is parasympathetic. Therefore, by making your exhalations longer than your inhalations, you are actively telling your brain to slow down your heart rate and trigger relaxation.</p>
+
+                    <h3>Three Science-Backed Breathing Protocols</h3>
+                    <ul>
+                        <li><strong>Box Breathing:</strong> Used by military personnel and athletes. Inhale for 4s, hold for 4s, exhale for 4s, hold for 4s. Promotes focus and calm under pressure.</li>
+                        <li><strong>4-7-8 Breathing:</strong> Excellent for sleep. Inhale for 4s, hold for 7s, exhale for 8s. Deeply stimulates the vagus nerve.</li>
+                        <li><strong>Physiological Sigh:</strong> The fastest way to reduce anxiety in real-time. Take two quick inhales through the nose (one deep, followed by a quick top-up inhale), then a long, sighing exhale through the mouth. Repeating this just 3 times immediately resets breathing patterns.</li>
+                    </ul>
+                `,
+                category: "Mindfulness",
+                author: "SoulMi Editorial",
+                avatar: "ED",
+                date: "5 days ago",
+                readTime: "7 min read",
+                thumb: "🧘",
+                featured: false
+            },
+            {
+                id: 3,
+                title: "Building a Sleep Ritual That Your Anxious Mind Will Follow",
+                summary: "Gentle, non-rigid habits that signal safety to your brain, lowering cortisol and easing the transition to rest.",
+                content: `
+                    <p>Sleep anxiety is a frustrating paradox. The more you worry about not sleeping, the more alert your brain becomes, keeping sleep further out of reach. For an anxious mind, a rigid, multi-step sleep routine can actually add to the pressure. If you miss a step, you worry you won't sleep. The key is to replace "routines" with flexible, soothing "rituals" that focus on felt safety.</p>
+                    <p>When the brain is anxious, it perceives sleep as a state of vulnerability. To fall asleep, you must signal to your nervous system that you are completely safe. Here is how to build an anxiety-friendly sleep ritual.</p>
+
+                    <h3>1. Ditch the "Sleep Goal" Mindset</h3>
+                    <p>Treating sleep as a task to achieve activates the brain's achievement centers. Instead of saying "I must sleep by 11 PM," reframe it to: "My only goal tonight is to rest my body comfortably. Even if I stay awake, resting in a dark room is deeply restorative." This removes the performance pressure.</p>
+
+                    <blockquote>"Sleep is not something you actively do; it is something you allow to happen when safety is established."</blockquote>
+
+                    <h3>2. The "Brain Dump" Journaling Method</h3>
+                    <p>A major cause of bedtime insomnia is "hyper-arousal" caused by tomorrow's to-do list or unresolved thoughts circling in your mind. Keep a journal next to your bed. Write down everything in your head — tasks, worries, frustrations — without editing or styling. Close the book and say, "These thoughts are safe here. I will look at them tomorrow."</p>
+
+                    <h3>3. The 10-Percent Rule for Light and Sound</h3>
+                    <p>As evening approaches, slowly reduce sensory input. Dim overhead lights, switch to warm lamps, and lower the volume of your media. Your brain associates dimmer, warmer light with safety and natural sleep cycles (melatonin production).</p>
+
+                    <h3>4. Somatic Relaxation Over Mental Focus</h3>
+                    <p>Instead of trying to force your mind to stop thinking, focus entirely on relaxing your physical muscles. Try progressive muscle relaxation (tensing and releasing muscle groups from your toes to your face) or a guided body scan. When your physical body relaxes, your mind naturally follows.</p>
+                `,
+                category: "Sleep",
+                author: "Mrs. S. Veldanda",
+                avatar: "SV",
+                date: "1 week ago",
+                readTime: "6 min read",
+                thumb: "🌙",
+                featured: false
+            },
+            {
+                id: 4,
+                title: "Setting Boundaries Without Guilt",
+                summary: "Understanding why boundary-setting feels hard and developing warm, compassionate scripts you can actually use.",
+                content: `
+                    <p>Setting boundaries is one of the most loving things you can do — both for yourself and for the relationships in your life. Yet, for many of us, the simple act of saying "no" triggers a wave of guilt, fear of rejection, or feelings of selfishness. We worry we will hurt others or appear uncaring.</p>
+                    <p>To set healthy boundaries without guilt, we must first understand what boundaries actually are and reframe our relationship with them.</p>
+
+                    <h3>Why Boundaries Feel Hard</h3>
+                    <p>If you grew up as a people-pleaser, your brain learned to associate your safety and worth with making others happy. When you set a boundary, your nervous system interprets it as a threat to that connection, triggers a fear response, and serves it up as guilt. Guilt is not a sign that you have done something wrong; it is simply your old wiring protesting the change.</p>
+
+                    <blockquote>"Boundaries are not walls to keep people out. They are gates that define where you end and someone else begins, showing them how to love and respect you safely."</blockquote>
+
+                    <h3>How to Structure a Warm Boundary</h3>
+                    <p>A boundary does not need to be cold or aggressive. You can communicate a boundary with deep warmth, clarity, and kindness. A simple formula is: **Validation/Gratitude + The Boundary + Soft Alternative (optional).**</p>
+                    <p>Here are scripts you can use in different areas of your life:</p>
+                    <ul>
+                        <li><strong>With friends:</strong> "I love spending time with you, but I'm feeling incredibly drained today and need a quiet evening at home. Let's catch up next week instead!"</li>
+                        <li><strong>With family:</strong> "I know you're sharing this advice because you care about me, but I need to make this decision on my own. I'd love your emotional support rather than solutions right now."</li>
+                        <li><strong>At work:</strong> "Thank you for thinking of me for this project. I want to make sure I deliver quality work, and my plate is currently full. Can we prioritize this against my other tasks, or delegate it?"</li>
+                    </ul>
+
+                    <h3>Two Truths to Remember</h3>
+                    <p>First, you are responsible for communicating your boundary clearly and kindly. You are *not* responsible for the other person's emotional reaction. If they react with anger or guilt-tripping, it is a sign that the boundary was necessary.</p>
+                    <p>Second, boundaries protect relationships from resentment. When we say "yes" when we want to say "no," we build quiet resentment toward the other person. Saying "no" in the short-term preserves the relationship's health in the long-term.</p>
+                `,
+                category: "Relationships",
+                author: "Mrs. Soujanya Y.",
+                avatar: "SY",
+                date: "2 weeks ago",
+                readTime: "10 min read",
+                thumb: "💬",
+                featured: false
+            },
+            {
+                id: 5,
+                title: "Recognising and Nurturing Your Self-Esteem",
+                summary: "Learn the difference between self-esteem and self-compassion, and how to build a resilient sense of internal worth.",
+                content: `
+                    <p>Many of us tie our self-worth to external factors: our achievements, job titles, relationship status, or how others perceive us. But when those external anchors shift, our self-esteem crashes. Resilient self-esteem is an internal sense of worth that doesn't fluctuate with success or failure.</p>
+                    <p>Let's explore how to dismantle external dependency and cultivate a warm, stable relationship with ourselves.</p>
+
+                    <h3>Self-Esteem vs. Self-Compassion</h3>
+                    <p>Self-esteem is often evaluative — it is the answer to "Am I good enough? Am I successful?" It relies on feeling special or above average. Self-compassion, on the other hand, is non-judgmental. It is how you relate to yourself when you fail or feel inadequate. It says, "I am imperfect, I made a mistake, and I still deserve kindness."</p>
+                    <p>Research shows that focusing on self-compassion rather than self-esteem leads to much more stable mental health, as it doesn't leave you vulnerable to comparison or failure.</p>
+
+                    <blockquote>"Your worth is a birthright. It is not something you earn through productivity or validate through approval."</blockquote>
+
+                    <h3>Practical Habits to Nurture Your Worth</h3>
+                    <ul>
+                        <li><strong>Audit your self-talk:</strong> Start noticing the tone of your inner voice. Would you speak to a friend the way you speak to yourself when you make a mistake? Practice reframing critical thoughts into supportive ones.</li>
+                        <li><strong>Track small wins:</strong> Our brains have a natural negativity bias. We forget our successes and obsess over mistakes. Keep a daily list of 3 small things you did well — even if it's just getting out of bed, drinking water, or sending a difficult email.</li>
+                        <li><strong>Align with values over expectations:</strong> When we live our lives trying to meet other people's expectations, we feel disconnected and unworthy. Identify your core values (e.g., kindness, honesty, growth, creativity) and make small choices that honor them.</li>
+                    </ul>
+                `,
+                category: "Self-Esteem",
+                author: "SoulMi Editorial",
+                avatar: "ED",
+                date: "3 weeks ago",
+                readTime: "8 min read",
+                thumb: "⭐",
+                featured: false
+            }
+        ];
+
+        // Render posts
+        function renderPosts(filter = "all") {
+            const container = document.getElementById("blog-posts-container");
+            if (!container) return;
+
+            container.innerHTML = "";
+            const filtered = filter === "all" ? blogPosts : blogPosts.filter(p => p.category === filter);
+
+            if (filtered.length === 0) {
+                container.innerHTML = `<p style="grid-column: 1/-1; text-align: center; color: var(--text-muted); padding: 40px 0;">No articles found in this category.</p>`;
+                return;
+            }
+
+            // Find if there is a featured post in our filtered set (if filtering, first one behaves normal)
+            filtered.forEach((post, index) => {
+                const isFeatured = post.featured && filter === "all";
+                const card = document.createElement("div");
+                card.className = `post-card ${isFeatured ? 'featured' : ''} reveal active`;
+                card.innerHTML = `
+                    <div class="post-thumb-wrap">
+                        <span>${post.thumb}</span>
+                    </div>
+                    <div class="post-body">
+                        <span class="tag tag-${post.category.toLowerCase().replace(' ', '-')}">${post.category}</span>
+                        ${isFeatured ? `<h2>${post.title}</h2>` : `<h3>${post.title}</h3>`}
+                        <p>${post.summary}</p>
+                        <div class="post-meta">
+                            <div class="author-avatar">${post.avatar}</div>
+                            <div>
+                                <strong style="color: var(--charcoal); display: block;">${post.author}</strong>
+                                <span style="font-size:0.75rem; color:var(--text-muted);">${post.date} · ${post.readTime}</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                
+                card.addEventListener('click', () => openArticle(post));
+                container.appendChild(card);
+            });
+        }
+
+        // Open article in overlay
+        function openArticle(post) {
+            const overlay = document.getElementById("reader-overlay");
+            const visual = document.getElementById("reader-visual");
+            const tag = document.getElementById("reader-tag");
+            const title = document.getElementById("reader-title");
+            const avatar = document.getElementById("reader-avatar");
+            const author = document.getElementById("reader-author");
+            const date = document.getElementById("reader-date");
+            const readtime = document.getElementById("reader-readtime");
+            const body = document.getElementById("reader-article-body");
+            const bookmarkBtn = document.getElementById("reader-bookmark-btn");
+
+            if (!overlay) return;
+
+            visual.textContent = post.thumb;
+            tag.textContent = post.category;
+            tag.className = `tag tag-${post.category.toLowerCase().replace(' ', '-')}`;
+            title.textContent = post.title;
+            avatar.textContent = post.avatar;
+            author.textContent = post.author;
+            date.textContent = `Published ${post.date}`;
+            readtime.textContent = post.readTime;
+            body.innerHTML = post.content;
+
+            // Check if post is bookmarked
+            let saved = JSON.parse(localStorage.getItem('soulmi-saved-posts') || '[]');
+            if (saved.includes(post.id)) {
+                bookmarkBtn.classList.add('active');
+                bookmarkBtn.querySelector('span').textContent = "Saved";
+            } else {
+                bookmarkBtn.classList.remove('active');
+                bookmarkBtn.querySelector('span').textContent = "Save Article";
+            }
+
+            // Bookmark Action
+            bookmarkBtn.onclick = (e) => {
+                e.stopPropagation();
+                saved = JSON.parse(localStorage.getItem('soulmi-saved-posts') || '[]');
+                if (saved.includes(post.id)) {
+                    saved = saved.filter(id => id !== post.id);
+                    bookmarkBtn.classList.remove('active');
+                    bookmarkBtn.querySelector('span').textContent = "Save Article";
+                } else {
+                    saved.push(post.id);
+                    bookmarkBtn.classList.add('active');
+                    bookmarkBtn.querySelector('span').textContent = "Saved";
+                }
+                localStorage.setItem('soulmi-saved-posts', JSON.stringify(saved));
+            };
+
+            overlay.classList.add("active");
+            document.body.style.overflow = "hidden";
+        }
+
+        // Close article
+        function closeReader() {
+            const overlay = document.getElementById("reader-overlay");
+            if (overlay) {
+                overlay.classList.remove("active");
+                document.body.style.overflow = "";
+            }
+        }
+
+        // Init page specific event listeners
+        document.addEventListener("DOMContentLoaded", () => {
+            renderPosts();
+
+            // Category filter chips
+            const chips = document.querySelectorAll(".filter-chip");
+            chips.forEach(chip => {
+                chip.addEventListener("click", () => {
+                    chips.forEach(c => c.classList.remove("active"));
+                    chip.classList.add("active");
+                    renderPosts(chip.dataset.filter);
+                });
+            });
+
+            // Close actions
+            const closeBtn = document.getElementById("reader-close");
+            if (closeBtn) closeBtn.addEventListener("click", closeReader);
+
+            const overlay = document.getElementById("reader-overlay");
+            if (overlay) {
+                overlay.addEventListener("click", (e) => {
+                    if (e.target === overlay) closeReader();
+                });
+            }
+
+            // Copy Link
+            const copyBtn = document.getElementById("reader-copy-link-btn");
+            if (copyBtn) {
+                copyBtn.addEventListener("click", (e) => {
+                    e.stopPropagation();
+                    navigator.clipboard.writeText(window.location.href);
+                    alert("Article link copied to clipboard!");
+                });
+            }
+        });
+    </script>
+</body>
+</html>

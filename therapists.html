@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Find a Therapist | SoulMi</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Nunito+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- ======= NAVBAR ======= -->
+    <header id="navbar">
+        <div class="container">
+            <div class="nav-inner">
+                <a href="index.html" class="nav-logo">
+                    <img src="images/soulmi-logo.jpeg" alt="SoulMi Logo" class="nav-logo-icon">
+                    <span class="nav-logo-text">SoulMi</span>
+                </a>
+                <nav class="nav-links">
+                    <a href="index.html">Home</a>
+                    <a href="about.html">About</a>
+                    <a href="therapists.html" class="active">Therapists</a>
+                    <a href="resources.html">Resources</a>
+                </nav>
+                <div class="nav-actions">
+                    <a href="tel:9152987821" class="crisis-link">Crisis Help</a>
+                    <div class="theme-toggle" id="theme-toggle" title="Toggle Zen Mode">
+                        <svg class="moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+                        <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+                    </div>
+                    <a href="register.html" class="btn btn-primary btn-sm">Get Started</a>
+                </div>
+                <button class="nav-hamburger" id="nav-hamburger" aria-label="Open menu">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <div class="nav-mobile-menu" id="nav-mobile-menu">
+        <button class="nav-mobile-close" id="nav-mobile-close" aria-label="Close menu">×</button>
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="therapists.html">Therapists</a>
+        <a href="resources.html">Resources</a>
+        <a href="register.html" class="btn btn-primary" style="margin-top: 12px;">Get Started</a>
+    </div>
+
+    <!-- ======= PAGE HERO ======= -->
+    <div class="directory-hero">
+        <div class="container">
+            <div class="chip chip-sage">Expert Directory</div>
+            <h1>Find Your Perfect Match</h1>
+            <p>Filter by location, specialisation, and language to find a professional who truly understands you.</p>
+        </div>
+    </div>
+
+    <!-- ======= DIRECTORY ======= -->
+    <section class="section" style="padding-top: 0;">
+        <div class="container">
+            <div class="directory-layout">
+                <aside class="filter-sidebar reveal">
+                    <h3>Filters</h3>
+
+                    <div class="filter-group">
+                        <label for="filter-location">Location</label>
+                        <select id="filter-location">
+                            <option value="all">All Locations</option>
+                            <option value="hyderabad">Hyderabad</option>
+                            <option value="remote">Remote (Online)</option>
+                        </select>
+                    </div>
+
+                    <div class="filter-group">
+                        <label for="filter-spec">Specialisation</label>
+                        <select id="filter-spec">
+                            <option value="all">All Specialisations</option>
+                            <option value="anxiety">Anxiety &amp; Stress</option>
+                            <option value="trauma">Emotional Trauma</option>
+                            <option value="child">Child &amp; Adolescent</option>
+                            <option value="relationships">Relationships</option>
+                        </select>
+                    </div>
+
+                    <div class="filter-group">
+                        <label for="filter-lang">Language</label>
+                        <select id="filter-lang">
+                            <option value="all">All Languages</option>
+                            <option value="english">English</option>
+                            <option value="hindi">Hindi</option>
+                            <option value="telugu">Telugu</option>
+                            <option value="kannada">Kannada</option>
+                            <option value="tamil">Tamil</option>
+                        </select>
+                    </div>
+
+                    <button id="reset-filters" class="btn btn-secondary" style="width: 100%; margin-top: 10px;">Reset Filters</button>
+
+                    <div style="margin-top: 24px; padding: 16px; background: rgba(111,148,148,0.1); border: 1px solid rgba(111,148,148,0.2); border-radius: var(--radius-md); font-size: 0.85rem; color: var(--sage-dark);">
+                        <strong style="display:block; margin-bottom:6px;">Crisis Support</strong>
+                        All sessions are confidential. If you're in immediate distress, call iCall: <a href="tel:9152987821" style="font-weight:700; color:var(--sage-dark);">9152987821</a>
+                    </div>
+                </aside>
+
+                <section class="therapists-grid" id="therapists-grid" aria-label="Therapist listings">
+                    <!-- JS renders cards here -->
+                </section>
+            </div>
+        </div>
+    </section>
+
+    <!-- ======= FOOTER ======= -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <span class="nav-logo-text">SoulMi</span>
+                    <p>Where every soul finds its home. A warm, safe sanctuary for your mind — anytime, anywhere.</p>
+                    <div class="footer-social">
+                        <a href="#" class="social-btn" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor"/></svg></a>
+                        <a href="#" class="social-btn" aria-label="Twitter"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/></svg></a>
+                        <a href="#" class="social-btn" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
+                    </div>
+                    <div class="footer-crisis">
+                        <strong>Crisis Support:</strong> iCall India — <a href="tel:9152987821">9152987821</a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h5>Platform</h5>
+                    <ul>
+                        <li><a href="#">SoulMi AI</a></li>
+                        <li><a href="#">Mood Tracker</a></li>
+                        <li><a href="resources.html">Resources</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h5>Company</h5>
+                    <ul>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="therapists.html">Therapists</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="#">Careers</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h5>Contact</h5>
+                    <ul>
+                        <li><a href="mailto:soulmi.2040@gmail.com">soulmi.2040@gmail.com</a></li>
+                        <li><a href="tel:+919100907664">+91 91009 07664</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Use</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2026 SoulMi Sanctuary. All rights reserved.</p>
+                <p>Made with care for every mind that needs a home.</p>
+            </div>
+        </div>
+    </footer>
+
+    <nav class="bottom-nav" aria-label="Mobile navigation">
+        <div class="bottom-nav-inner">
+            <a href="index.html" class="bottom-nav-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                <span>Home</span>
+            </a>
+            <a href="register.html" class="bottom-nav-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                <span>Community</span>
+            </a>
+            <a href="resources.html" class="bottom-nav-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+                <span>Resources</span>
+            </a>
+            <a href="therapists.html" class="bottom-nav-item active">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="7" r="4"/><path d="M3 21v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/><path d="M21 21v-2a4 4 0 0 0-3-3.87"/></svg>
+                <span>Therapists</span>
+            </a>
+        </div>
+    </nav>
+
+    <!-- ======= AI CHAT WIDGET ======= -->
+    <div class="chat-widget">
+        <div class="chat-tooltip">Talk to SoulMi AI 🌿</div>
+        <button id="chat-toggle" class="chat-btn" aria-label="Open SoulMi AI chat">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        </button>
+        <div class="chat-window" id="chat-window" role="dialog" aria-label="SoulMi AI Chat">
+            <div class="chat-header">
+                <div class="chat-title">
+                    <div class="online-dot"></div> SoulMi AI
+                </div>
+                <button id="close-chat" aria-label="Close chat">×</button>
+            </div>
+            <div class="chat-body" id="chat-body">
+                <div class="message ai-msg">Hi there. I'm SoulMi. This is a safe space — no judgment, just care. How are you feeling right now?</div>
+            </div>
+            <div class="chat-input">
+                <input type="text" id="chat-input-field" placeholder="Type a message..." aria-label="Chat message">
+                <button id="send-btn">Send</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="config.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

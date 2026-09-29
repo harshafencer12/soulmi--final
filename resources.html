@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Resources & Programs | SoulMi</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Nunito+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- ======= NAVBAR ======= -->
+    <header id="navbar">
+        <div class="container">
+            <div class="nav-inner">
+                <a href="index.html" class="nav-logo">
+                    <img src="images/soulmi-logo.jpeg" alt="SoulMi Logo" class="nav-logo-icon">
+                    <span class="nav-logo-text">SoulMi</span>
+                </a>
+                <nav class="nav-links">
+                    <a href="index.html">Home</a>
+                    <a href="about.html">About</a>
+                    <a href="therapists.html">Therapists</a>
+                    <a href="resources.html" class="active">Resources</a>
+                </nav>
+                <div class="nav-actions">
+                    <a href="tel:9152987821" class="crisis-link">Crisis Help</a>
+                    <div class="theme-toggle" id="theme-toggle" title="Toggle Zen Mode">
+                        <svg class="moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+                        <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+                    </div>
+                    <a href="register.html" class="btn btn-primary btn-sm">Get Started</a>
+                </div>
+                <button class="nav-hamburger" id="nav-hamburger" aria-label="Open menu">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <div class="nav-mobile-menu" id="nav-mobile-menu">
+        <button class="nav-mobile-close" id="nav-mobile-close" aria-label="Close menu">×</button>
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="therapists.html">Therapists</a>
+        <a href="resources.html">Resources</a>
+        <a href="register.html" class="btn btn-primary" style="margin-top: 12px;">Get Started</a>
+    </div>
+
+    <!-- ======= PAGE HERO ======= -->
+    <div class="page-hero">
+        <div class="container">
+            <div class="chip chip-terracotta">Library</div>
+            <h1>Resources &amp; Programs</h1>
+            <p>Expert-backed exercises, articles, and guided programs — organised by what your mind needs most.</p>
+        </div>
+    </div>
+
+    <!-- ======= FEATURED PROGRAM BANNER ======= -->
+    <section class="section" style="padding-top: 0;">
+        <div class="container">
+            <div class="program-banner reveal">
+                <div>
+                    <div class="chip" style="background:rgba(255,255,255,0.2); color:white; margin-bottom:14px;">Featured Program</div>
+                    <h2>21-Day Mindfulness Journey</h2>
+                    <p>A guided daily program combining breathwork, journaling prompts, and reflective exercises — designed by our clinical team to gently rewire anxious thought patterns.</p>
+                    <a href="register.html" class="btn btn-white btn-lg">Start for Free</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ======= SEARCH & FILTER ======= -->
+    <section class="section" style="padding-top: 0; padding-bottom: 0;">
+        <div class="container">
+            <div class="resources-search-wrap">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                <input type="search" id="resources-search-field" placeholder="Search resources, topics, or formats…" aria-label="Search resources">
+            </div>
+            <div class="filter-chips" id="resources-filter-chips">
+                <button class="filter-chip active" data-filter="all">All</button>
+                <button class="filter-chip" data-filter="Anxiety">Anxiety</button>
+                <button class="filter-chip" data-filter="Mindfulness">Mindfulness</button>
+                <button class="filter-chip" data-filter="Sleep">Sleep</button>
+                <button class="filter-chip" data-filter="Relationships">Relationships</button>
+                <button class="filter-chip" data-filter="Self-Esteem">Self-Esteem</button>
+                <button class="filter-chip" data-filter="Exercise">Exercises</button>
+                <button class="filter-chip" data-filter="Article">Articles</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- ======= RESOURCES GRID ======= -->
+    <section class="section" style="padding-top: 40px;">
+        <div class="container">
+            <div class="resources-grid" id="resources-grid-container">
+                <!-- Resources will be generated dynamically by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- ======= CTA ======= -->
+    <section class="section">
+        <div class="container">
+            <div class="cta-banner reveal">
+                <h2>Unlock the full library.</h2>
+                <p>Create a free SoulMi account to save resources, track your progress, and access all 100+ exercises and programs.</p>
+                <a href="register.html" class="btn btn-white btn-lg">Create Free Account</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ======= FOOTER ======= -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <span class="nav-logo-text">SoulMi</span>
+                    <p>Where every soul finds its home. A warm, safe sanctuary for your mind — anytime, anywhere.</p>
+                    <div class="footer-social">
+                        <a href="#" class="social-btn" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor"/></svg></a>
+                        <a href="#" class="social-btn" aria-label="Twitter"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/></svg></a>
+                        <a href="#" class="social-btn" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
+                    </div>
+                    <div class="footer-crisis">
+                        <strong>Crisis Support:</strong> iCall India — <a href="tel:9152987821">9152987821</a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h5>Platform</h5>
+                    <ul>
+                        <li><a href="#">SoulMi AI</a></li>
+                        <li><a href="#">Mood Tracker</a></li>
+                        <li><a href="resources.html">Resources</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h5>Company</h5>
+                    <ul>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="therapists.html">Therapists</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="#">Careers</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h5>Contact</h5>
+                    <ul>
+                        <li><a href="mailto:soulmi.2040@gmail.com">soulmi.2040@gmail.com</a></li>
+                        <li><a href="tel:+919100907664">+91 91009 07664</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Use</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2026 SoulMi Sanctuary. All rights reserved.</p>
+                <p>Made with care for every mind that needs a home.</p>
+            </div>
+        </div>
+    </footer>
+
+    <nav class="bottom-nav" aria-label="Mobile navigation">
+        <div class="bottom-nav-inner">
+            <a href="index.html" class="bottom-nav-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                <span>Home</span>
+            </a>
+            <a href="register.html" class="bottom-nav-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                <span>Community</span>
+            </a>
+            <a href="resources.html" class="bottom-nav-item active">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+                <span>Resources</span>
+            </a>
+            <a href="therapists.html" class="bottom-nav-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="7" r="4"/><path d="M3 21v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/><path d="M21 21v-2a4 4 0 0 0-3-3.87"/></svg>
+                <span>Therapists</span>
+            </a>
+        </div>
+    </nav>
+
+    <!-- ======= READER OVERLAY ======= -->
+    <div class="reader-overlay" id="reader-overlay" role="dialog" aria-modal="true">
+        <div class="reader-container" id="reader-container">
+            <button class="reader-close" id="reader-close" aria-label="Close resource">×</button>
+            <div class="reader-header-visual" id="reader-visual">🌬️</div>
+            <div class="reader-content">
+                <span class="tag tag-anxiety" id="reader-tag">Anxiety</span>
+                <h1 id="reader-title">Box Breathing: 5-Minute Reset</h1>
+                <div class="reader-meta-bar">
+                    <span id="reader-duration" style="font-family:var(--font-head); font-size:0.85rem; font-weight:600; color:var(--text-muted);">5 min</span>
+                </div>
+                <div class="reader-article-body" id="reader-article-body">
+                    <!-- Resource content will be generated here by JavaScript -->
+                </div>
+                <div class="reader-footer">
+                    <div class="post-meta" style="margin-top: 0;">
+                        <button class="btn btn-secondary btn-sm bookmark-btn" id="reader-bookmark-btn" aria-label="Save this resource">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+                            <span>Save Resource</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ======= AI CHAT WIDGET ======= -->
+    <div class="chat-widget">
+        <div class="chat-tooltip">Talk to SoulMi AI 🌿</div>
+        <button id="chat-toggle" class="chat-btn" aria-label="Open SoulMi AI chat">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        </button>
+        <div class="chat-window" id="chat-window" role="dialog" aria-label="SoulMi AI Chat">
+            <div class="chat-header">
+                <div class="chat-title">
+                    <div class="online-dot"></div> SoulMi AI
+                </div>
+                <button id="close-chat" aria-label="Close chat">×</button>
+            </div>
+            <div class="chat-body" id="chat-body">
+                <div class="message ai-msg">Hi there. I'm SoulMi. This is a safe space — no judgment, just care. How are you feeling right now?</div>
+            </div>
+            <div class="chat-input">
+                <input type="text" id="chat-input-field" placeholder="Type a message..." aria-label="Chat message">
+                <button id="send-btn">Send</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="config.js"></script>
+    <script src="script.js"></script>
+    <script>
+        // Resource Database
+        const resourcesData = [
+            {
+                id: 1,
+                title: "Box Breathing: 5-Minute Reset",
+                category: "Anxiety",
+                type: "Exercise",
+                duration: "5 min",
+                icon: "🌬️",
+                colorClass: "terracotta",
+                summary: "A simple, evidence-based breathing technique to calm your nervous system in under 5 minutes.",
+                content: `
+                    <p>Box breathing, also known as four-square breathing, is a powerful and simple technique used by high-performance athletes, first responders, and military personnel to clear the mind, relax the body, and improve focus.</p>
+                    <p>It works by regulating your autonomic nervous system, lowering cortisol levels, and triggering a parasympathetic state (your rest-and-digest response).</p>
+                    
+                    <h3>How to Practice Box Breathing:</h3>
+                    <ol>
+                        <li><strong>Exhale:</strong> First, exhale all the air from your lungs gently.</li>
+                        <li><strong>Inhale (4s):</strong> Inhale slowly through your nose for a count of 4 seconds. Fill your abdomen and chest completely.</li>
+                        <li><strong>Hold (4s):</strong> Hold your breath for another count of 4 seconds. Keep your body relaxed; do not tense your throat or shoulders.</li>
+                        <li><strong>Exhale (4s):</strong> Exhale slowly and smoothly through your mouth for 4 seconds, releasing all the tension with the breath.</li>
+                        <li><strong>Hold Empty (4s):</strong> Hold your lungs empty for a final count of 4 seconds.</li>
+                        <li><strong>Repeat:</strong> Repeat this cycle 4 to 5 times. Notice how your heart rate slows down and your chest relaxes.</li>
+                    </ol>
+                    
+                    <blockquote>"Regulating your breath is the fastest, most direct way to signal physical safety to your amygdala during moments of high stress."</blockquote>
+                `
+            },
+            {
+                id: 2,
+                title: "Body Scan Meditation for Sleep",
+                category: "Sleep",
+                type: "Exercise",
+                duration: "12 min",
+                icon: "🧘",
+                colorClass: "lavender",
+                summary: "A guided 12-minute body scan that progressively releases tension and eases you into restful sleep.",
+                content: `
+                    <p>A body scan is one of the most effective somatic mindfulness practices for releasing physiological tension and preparing the brain for deep, restorative sleep. Rather than trying to force your mind to stop thinking, a body scan redirects your attention to physical sensations, lowering your heart rate and easing muscle rigidity.</p>
+                    
+                    <h3>Somatic Body Scan Instructions:</h3>
+                    <ol>
+                        <li><strong>Prepare:</strong> Lie flat on your back in bed, arms resting gently at your sides with palms facing upward. Close your eyes and take three slow, deep sighs.</li>
+                        <li><strong>Connect:</strong> Notice the sensation of your body pressing against the mattress. Feel the points of support at your heels, back, and head.</li>
+                        <li><strong>Toes & Feet:</strong> Bring your awareness to the toes of your left foot. Notice any temperature, pressure, or tingling. Gently visualize the muscles softening. Move your attention to the arch of your foot, then the ankle.</li>
+                        <li><strong>Progress Upwards:</strong> Slowly sweep your awareness up your left leg, to your calf, knee, and thigh. Consciously release any tightness. Repeat this process for your right foot and leg.</li>
+                        <li><strong>Torso & Spine:</strong> Move your focus to your lower back, abdomen, rib cage, and chest. Feel them expand and contract with each breath. Let your shoulders drop away from your ears.</li>
+                        <li><strong>Neck & Face:</strong> Focus on your hands and arms. Finally, bring awareness to your neck, jaw, tongue, and forehead. Let your jaw hang loose. Allow your entire body to feel heavy and fully supported.</li>
+                    </ol>
+                    
+                    <blockquote>"By systematically scanning your body, you ground your awareness in physical reality, interrupting the anxious mental chatter that fuels insomnia."</blockquote>
+                `
+            },
+            {
+                id: 3,
+                title: "The Inner Critic: Recognising & Responding",
+                category: "Self-Esteem",
+                type: "Article",
+                duration: "8 min read",
+                icon: "📓",
+                colorClass: "sage",
+                summary: "How to identify your inner critic's voice, understand where it comes from, and begin to respond with compassion.",
+                content: `
+                    <p>The inner critic is that persistent, harsh voice inside our head that highlights mistakes, downplays achievements, and predicts failure. While it often feels like an enemy, psychological research shows that the inner critic is actually an overprotective survival mechanism trying to keep you safe from social rejection or failure. However, its methods are often counterproductive.</p>
+                    
+                    <h3>How to Reframe Your Inner Critic:</h3>
+                    <ol>
+                        <li><strong>Notice the Critic:</strong> The moment you hear a thought like "You always mess up" or "You aren't good enough," label it. Say to yourself: "I am noticing a critical voice right now." This creates distance between your identity and the thought.</li>
+                        <li><strong>Identify the Undercurrent:</strong> Ask yourself what the voice is trying to protect you from. Is it trying to prevent you from being embarrassed? Acknowledge its intent: "I see you are worried about this presentation failing."</li>
+                        <li><strong>Respond with Compassion:</strong> Replace harsh judgment with realistic self-compassion. If the critic says "You failed again," respond with: "I made a mistake, which is a normal part of learning. I have handled similar situations successfully in the past."</li>
+                    </ol>
+                    
+                    <blockquote>"Self-compassion is not self-indulgence; it is a resilient mental foundation that allows us to grow without needing to be perfect."</blockquote>
+                `
+            },
+            {
+                id: 4,
+                title: "4-7-8 Breathing for Insomnia",
+                category: "Sleep",
+                type: "Exercise",
+                duration: "6 min",
+                icon: "🌙",
+                colorClass: "gold",
+                summary: "A specific breathing pattern designed to activate the parasympathetic nervous system and reduce pre-sleep anxiety.",
+                content: `
+                    <p>Developed by Dr. Andrew Weil, the 4-7-8 breathing technique acts as a natural tranquilizer for the nervous system. By forcing the breath into a specific rhythmic ratio, you increase oxygen intake, stimulate the vagus nerve, and actively lower your heart rate, helping you transition quickly into a state of sleep.</p>
+                    
+                    <h3>The 4-7-8 Breathing Protocol:</h3>
+                    <ol>
+                        <li><strong>Position:</strong> Place the tip of your tongue against the tissue ridge just behind your upper front teeth, keeping it there throughout the exercise.</li>
+                        <li><strong>Whoosh:</strong> Exhale completely through your mouth, making a gentle 'whoosh' sound.</li>
+                        <li><strong>Inhale (4s):</strong> Close your mouth and inhale quietly through your nose for a count of 4 seconds.</li>
+                        <li><strong>Hold (7s):</strong> Hold your breath for a count of 7 seconds. This is the most critical step as it allows oxygen to fully saturate the bloodstream.</li>
+                        <li><strong>Exhale (8s):</strong> Exhale completely through your mouth, making a 'whoosh' sound, for a count of 8 seconds.</li>
+                        <li><strong>Repeat:</strong> Repeat this entire cycle for a total of 4 breath cycles. Do not practice more than 4 cycles at a time when starting.</li>
+                    </ol>
+                    
+                    <blockquote>"Rhythmic breathing works because it changes the chemistry of your blood, lowering carbon dioxide and signaling absolute safety to the brain."</blockquote>
+                `
+            },
+            {
+                id: 5,
+                title: "Setting Boundaries Without Guilt",
+                category: "Relationships",
+                type: "Article",
+                duration: "10 min read",
+                icon: "💬",
+                colorClass: "terracotta",
+                summary: "Understanding why boundaries feel hard, and scripts you can actually use to communicate them with warmth.",
+                content: `
+                    <p>Setting boundaries is one of the most loving actions you can take — both for your own mental health and for the health of your relationships. Yet, for many of us, saying "no" triggers a wave of guilt. We worry that we are being selfish or that we will push people away. Let's explore how to dismantle this guilt and set compassionate, firm boundaries.</p>
+                    
+                    <h3>Why Boundaries Trigger Guilt:</h3>
+                    <p>If you grew up as a people-pleaser, your nervous system learned to associate safety with making others happy. Setting a boundary feels like a threat to connection, which your brain translates into guilt. Guilt is not a sign that you did something wrong; it is simply your old conditioning protesting the change.</p>
+                    
+                    <h3>The Warm Boundary Formula:</h3>
+                    <p>A healthy boundary follows a simple structure: <strong>Gratitude/Validation + The Boundary + Soft Alternative</strong>.</p>
+                    <ul>
+                        <li><strong>With friends:</strong> "Thank you so much for thinking of me! I'm feeling quite exhausted today and need a quiet evening at home. I'd love to grab lunch next Tuesday instead!"</li>
+                        <li><strong>With family:</strong> "I know you're giving me this advice because you care, but I need to make this decision on my own. I would really appreciate your support rather than suggestions right now."</li>
+                        <li><strong>At work:</strong> "Thank you for the opportunity. To make sure I deliver quality work, I need to focus on my current tasks first. Can we push the deadline for this new project, or delegate it?"</li>
+                    </ul>
+                `
+            },
+            {
+                id: 6,
+                title: "5-Minute Morning Grounding Journal",
+                category: "Mindfulness",
+                type: "Exercise",
+                duration: "5 min",
+                icon: "✍️",
+                colorClass: "lavender",
+                summary: "Three simple prompts to start your day with clarity instead of anxiety — takes under five minutes.",
+                content: `
+                    <p>When you wake up, your brain is often flooded with cortisol, triggering automatic threat-scanning and anxiety about the day's to-do list. A morning grounding journal is a micro-intervention designed to establish a mindful, calm focus for your day, shifting your brain out of automatic threat-scanning.</p>
+                    
+                    <h3>The Three Morning Prompts:</h3>
+                    <ol>
+                        <li><strong>Prompt 1: What am I grateful for? (Gratitude)</strong> Write down 3 highly specific, small things you appreciate right now. (e.g., "The warm sun hitting the wood floor," "the taste of hot green tea," "the quiet before the household wakes up").</li>
+                        <li><strong>Prompt 2: What is my primary intention today? (Intention)</strong> Set a focus for how you want to show up. (e.g., "Being present in meetings without multitasking," "practicing patience with my kids," "taking a deep breath when I feel rushed").</li>
+                        <li><strong>Prompt 3: What can I let go of today? (Release)</strong> Identify one worry, expectation, or attachment you want to release control over. (e.g., "The need to get everything done perfectly," "feeling guilty for resting," "worrying about an email response").</li>
+                    </ol>
+                    
+                    <blockquote>"Five minutes of morning journaling acts as a gentle anchor, helping you navigate the day's waves from a place of centered presence."</blockquote>
+                `
+            }
+        ];
+
+        // Render resources in grid
+        function renderResources(filter = "all", searchQuery = "") {
+            const container = document.getElementById("resources-grid-container");
+            if (!container) return;
+
+            container.innerHTML = "";
+
+            // Apply filters and search
+            const filtered = resourcesData.filter(res => {
+                const matchesFilter = filter === "all" 
+                    || res.category === filter 
+                    || res.type === filter;
+                
+                const query = searchQuery.toLowerCase().trim();
+                const matchesSearch = !query 
+                    || res.title.toLowerCase().includes(query)
+                    || res.summary.toLowerCase().includes(query)
+                    || res.category.toLowerCase().includes(query)
+                    || res.type.toLowerCase().includes(query);
+
+                return matchesFilter && matchesSearch;
+            });
+
+            if (filtered.length === 0) {
+                container.innerHTML = `<p style="grid-column: 1/-1; text-align: center; color: var(--text-muted); padding: 40px 0;">No resources found matching your search.</p>`;
+                return;
+            }
+
+            filtered.forEach((res, index) => {
+                const card = document.createElement("div");
+                card.className = "resource-card reveal active";
+                
+                // Check if bookmarked
+                const saved = JSON.parse(localStorage.getItem('soulmi-saved-posts') || '[]');
+                const isBookmarked = saved.includes(res.id);
+
+                card.innerHTML = `
+                    <div class="resource-card-icon resource-card-icon-${res.colorClass}">${res.icon}</div>
+                    <span class="tag tag-${res.category.toLowerCase().replace(' ', '-')}">${res.category} · ${res.type}</span>
+                    <h4>${res.title}</h4>
+                    <p>${res.summary}</p>
+                    <div class="resource-footer">
+                        <div class="resource-meta">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                            <span>${res.duration}</span>
+                        </div>
+                        <button class="bookmark-btn ${isBookmarked ? 'active' : ''}" aria-label="Save resource">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+                        </button>
+                    </div>
+                `;
+
+                // Handle click on card (excluding the bookmark button)
+                card.addEventListener('click', (e) => {
+                    if (e.target.closest('.bookmark-btn')) return;
+                    openResource(res);
+                });
+
+                // Handle bookmark click
+                const bookmarkBtn = card.querySelector('.bookmark-btn');
+                bookmarkBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    toggleBookmark(res.id, bookmarkBtn);
+                });
+
+                container.appendChild(card);
+            });
+        }
+
+        // Bookmark toggle
+        function toggleBookmark(id, buttonEl) {
+            let saved = JSON.parse(localStorage.getItem('soulmi-saved-posts') || '[]');
+            if (saved.includes(id)) {
+                saved = saved.filter(savedId => savedId !== id);
+                buttonEl.classList.remove('active');
+            } else {
+                saved.push(id);
+                buttonEl.classList.add('active');
+            }
+            localStorage.setItem('soulmi-saved-posts', JSON.stringify(saved));
+        }
+
+        // Open resource in overlay
+        function openResource(res) {
+            const overlay = document.getElementById("reader-overlay");
+            const visual = document.getElementById("reader-visual");
+            const tag = document.getElementById("reader-tag");
+            const title = document.getElementById("reader-title");
+            const duration = document.getElementById("reader-duration");
+            const body = document.getElementById("reader-article-body");
+            const bookmarkBtn = document.getElementById("reader-bookmark-btn");
+
+            if (!overlay) return;
+
+            visual.textContent = res.icon;
+            tag.textContent = `${res.category} · ${res.type}`;
+            tag.className = `tag tag-${res.category.toLowerCase().replace(' ', '-')}`;
+            title.textContent = res.title;
+            duration.textContent = res.duration;
+            body.innerHTML = res.content;
+
+            // Check if bookmarked
+            let saved = JSON.parse(localStorage.getItem('soulmi-saved-posts') || '[]');
+            if (saved.includes(res.id)) {
+                bookmarkBtn.classList.add('active');
+                bookmarkBtn.querySelector('span').textContent = "Saved";
+            } else {
+                bookmarkBtn.classList.remove('active');
+                bookmarkBtn.querySelector('span').textContent = "Save Resource";
+            }
+
+            // Bookmark Action
+            bookmarkBtn.onclick = (e) => {
+                saved = JSON.parse(localStorage.getItem('soulmi-saved-posts') || '[]');
+                if (saved.includes(res.id)) {
+                    saved = saved.filter(id => id !== res.id);
+                    bookmarkBtn.classList.remove('active');
+                    bookmarkBtn.querySelector('span').textContent = "Save Resource";
+                } else {
+                    saved.push(res.id);
+                    bookmarkBtn.classList.add('active');
+                    bookmarkBtn.querySelector('span').textContent = "Saved";
+                }
+                localStorage.setItem('soulmi-saved-posts', JSON.stringify(saved));
+                
+                // Re-render resources to update card bookmark states
+                const activeChip = document.querySelector('.filter-chip.active');
+                const searchVal = document.getElementById("resources-search-field")?.value || "";
+                renderResources(activeChip ? activeChip.dataset.filter : "all", searchVal);
+            };
+
+            overlay.classList.add("active");
+            document.body.style.overflow = "hidden";
+        }
+
+        // Close resource
+        function closeReader() {
+            const overlay = document.getElementById("reader-overlay");
+            if (overlay) {
+                overlay.classList.remove("active");
+                document.body.style.overflow = "";
+            }
+        }
+
+        // Init page specific event listeners
+        document.addEventListener("DOMContentLoaded", () => {
+            renderResources();
+
+            // Category filter chips
+            const chips = document.querySelectorAll("#resources-filter-chips .filter-chip");
+            const searchField = document.getElementById("resources-search-field");
+
+            chips.forEach(chip => {
+                chip.addEventListener("click", () => {
+                    chips.forEach(c => c.classList.remove("active"));
+                    chip.classList.add("active");
+                    renderResources(chip.dataset.filter, searchField ? searchField.value : "");
+                });
+            });
+
+            // Search input listening
+            if (searchField) {
+                searchField.addEventListener("input", () => {
+                    const activeChip = document.querySelector("#resources-filter-chips .filter-chip.active");
+                    renderResources(activeChip ? activeChip.dataset.filter : "all", searchField.value);
+                });
+            }
+
+            // Close actions
+            const closeBtn = document.getElementById("reader-close");
+            if (closeBtn) closeBtn.addEventListener("click", closeReader);
+
+            const overlay = document.getElementById("reader-overlay");
+            if (overlay) {
+                overlay.addEventListener("click", (e) => {
+                    if (e.target === overlay) closeReader();
+                });
+            }
+        });
+    </script>
+</body>
+</html>
